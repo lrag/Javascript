@@ -6,6 +6,8 @@
     <title>Document</title>
 </head>
 
+<script src="./common.js" type="application/javascript"></script>
+
 <script>
 
 /*
@@ -63,9 +65,14 @@ DELETE   /productos/15   -           Borrar por id   -
 //GET http://localhost:3000/productos
 
 function obtenerProductos(){
-
-
-
+    fetch(urlServicio)
+    .then( function(responseHead) {
+        return responseHead.json()        
+    } )
+    .then( function(productos) {
+        rellenarTabla(productos)
+    })
+    .catch( function(error) { console.log(error) } )
 }
 
 function rellenarTabla(productos){
@@ -76,7 +83,7 @@ function rellenarTabla(productos){
                 <td>${producto.nombre}</td>
                 <td>${producto.nota}</td>
                 <td>${producto.precio}</td>
-                <td>${producto.existencias}</td>
+                <td>${producto.stock}</td>
             </tr>`
     }
     document.getElementById("tablaProductos").innerHTML = html
@@ -88,6 +95,7 @@ function verFormulario(){
 
 window.onload = function() {
     btnNuevo.onclick = verFormulario
+    obtenerProductos()
 }
 
 </script>
