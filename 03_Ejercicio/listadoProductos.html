@@ -8,7 +8,65 @@
 
 <script>
 
+/*
+
+GET
+POST
+PUT
+DELETE
+PATCH
+----------------------
+HEAD
+OPTIONS
+
+Identificar los recursos
+y decidir cómo se representan
+
+productos
+
+    {
+      "id": 2,
+      "nombre": "Teclado Mecánico ProType RGB",
+      "precio": 119.95,
+      "stock": 12,
+      "categorias": [
+        "Informática",
+        "Gaming",
+        "Periféricos"
+      ],
+      "nota": 4.8
+    }
+
+clientes
+empleados
+facturas
+
+Asignar carpetas (imaginarias) a los recursos
+
+/productos
+/clientes
+/empleados
+
+Por cada funcionalidad del servicio 
+crearemos un par METODO + RUTA único
+
+Método   Ruta            Body        Operacion       Respuesta
+--------------------------------------------------------------------------
+GET      /productos      -           Listar          [{producto}]
+GET      /productos/15   -           Buscar por id   {producto}
+POST     /productos      {producto}  Insertar        {producto_insertado}
+PUT      /productos/15   {producto}  Modificar       {producto_modificado}
+DELETE   /productos/15   -           Borrar por id   -
+
+*/
+
 //GET http://localhost:3000/productos
+
+function obtenerProductos(){
+
+
+
+}
 
 function rellenarTabla(productos){
     let html = ""
@@ -29,7 +87,7 @@ function verFormulario(){
 }
 
 window.onload = function() {
-    btnNuevo.onclick = verFormulario()
+    btnNuevo.onclick = verFormulario
 }
 
 </script>
@@ -38,9 +96,13 @@ window.onload = function() {
 
     <h1 align="center">Listado de productos</h1>
 
+    <hr/>
+
     <div align="center">
         <input type="button" value="Nuevo" id="btnNuevo">
     </div>
+
+    <p/>
 
     <table align="center" border="1">
         <tr>

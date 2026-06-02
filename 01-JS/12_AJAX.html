@@ -266,7 +266,10 @@ function enviarPeticionFetch(){
             console.log("No se pudo enviar la peticion")
             console.log(e)
         })
-}
+
+    //Aqui no tenemos los usuarios
+
+} //Vuelta a la tumbona
 
 function postConFetch(){
     fetch('https://jsonplaceholder.typicode.com/posts', {
@@ -277,13 +280,12 @@ function postConFetch(){
             userId: 1,
         }),
         headers: {
-            'Content-type': 'application/json; charset=UTF-8',
+            'Content-type': 'application/json; charset=UTF-8'
         },
     })
-    .then((response) => response.json())
-    .then((json) => console.log(json));    
+    .then( response => response.json())
+    .then( objeto => console.log(objeto));    
 }
-
 
 function rellenarTabla(usuarios){
     let html = ""

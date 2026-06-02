@@ -1,2 +1,2 @@
-npm install json-server
+npm install -i json-server
 npm start
