@@ -1,0 +1,76 @@
+{
+  "productos": [
+    {
+      "id": 1,
+      "nombre": "Auriculares Bluetooth WaveSound X5",
+      "descripcion": "Auriculares inalámbricos con cancelación de ruido y hasta 30 horas de batería.",
+      "precio": 79.99,
+      "stock": 25,
+      "categorias": [
+        "Electrónica",
+        "Audio",
+        "Bluetooth"
+      ],
+      "nota": 4.8
+    },
+    {
+      "id": 2,
+      "nombre": "Teclado Mecánico ProType RGB",
+      "descripcion": "Teclado mecánico gaming con iluminación RGB personalizable y switches azules.",
+      "precio": 119.95,
+      "stock": 12,
+      "categorias": [
+        "Informática",
+        "Gaming",
+        "Periféricos"
+      ],
+      "nota": 4.8
+    },
+    {
+      "id": 3,
+      "nombre": "Silla Ergonómica ComfortPlus",
+      "descripcion": "Silla de oficina ergonómica con soporte lumbar ajustable y reposabrazos 3D.",
+      "precio": 249.5,
+      "stock": 8,
+      "categorias": [
+        "Oficina",
+        "Mobiliario",
+        "Ergonomía"
+      ],
+      "nota": 4.7
+    },
+    {
+      "id": 4,
+      "nombre": "Smartwatch FitPulse S2",
+      "descripcion": "Reloj inteligente con monitor de ritmo cardíaco, GPS y resistencia al agua.",
+      "precio": 149,
+      "stock": 30,
+      "categorias": [
+        "Wearables",
+        "Tecnología",
+        "Fitness"
+      ],
+      "nota": 4.4
+    },
+    {
+      "id": 5,
+      "nombre": "Cafetera Espresso Barista Home",
+      "descripcion": "Cafetera espresso automática con espumador de leche integrado.",
+      "precio": 329.99,
+      "stock": 5,
+      "categorias": [
+        "Hogar",
+        "Cocina",
+        "Electrodomésticos"
+      ],
+      "nota": 4.9
+    }
+  ],
+  "usuarios": [
+    {
+      "nombre": "Sr. Smith",
+      "email": "srsmith@gmail.com",
+      "id": 1
+    }
+  ]
+}

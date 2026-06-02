@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+
+    <script src="/jquery.js" type="application/javascript"></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+</head>
+
+<script>
+
+function insertarProducto(){
+    //Validar...
+    $("#formulario").attr('action', 'insertarProducto').get(0).submit()
+}
+
+function volver(){
+    //Validar...
+    window.location = './listadoProductos'
+}
+
+$(function(){
+    $("#btnInsertar").on('click', insertarProducto)
+    //$("#btnModificar").on('click', modificarProducto)
+    //$("#btnBorrar").on('click', borrarProducto)
+    //$("#btnVaciar").on('click',vaciarFormulario)
+    $("#btnVolver").on('click',volver)
+})
+
+</script>
+
+<body>
+    
+    <div class="text-center page-header">
+        <h2 class="mt-4 mb-4">Aplicación de gestion de la Tienda3000</h2>
+    </div>   
+    
+    <%- include("../includes/menu") %>
+    
+    <h3 class="text-center mt-3 mb-3">
+        Formulario de discos
+    </h3>
+
+    <div class="text-center">
+        <button id="btnInsertar"  class="btn btn-primary mr-1">Insertar</button>
+        <button id="btnModificar" class="btn btn-primary mr-1">Modificar</button>
+        <button id="btnBorrar"    class="btn btn-danger  mr-1">Borrar</button>
+        <button id="btnVaciar"    class="btn btn-warning mr-1">Vaciar</button>
+        <button id="btnVolver"    class="btn btn-warning mr-1">Volver</button>
+    </div>
+    
+    <br/>
+    
+    <div class="row">
+        
+        <form id="formulario" method="POST">
+
+            <input type="hidden" name="_id" value="<%=productoSel._id%>"/>
+
+            <div class="row col-sm-12 offset-sm-0 col-md-8 offset-md-2">
+                <div class="col-2 mt-1">
+                    <label>Código</label>
+                </div>
+                <div class="col-10 mt-1">
+                    <input type="text" id="codigo" name="codigo" class="form-control" value="<%=productoSel.codigo%>"/>
+                </div>
+                
+                <div class="col-2 mt-1">
+                    <label>Nombre</label>
+                </div>
+                <div class="col-10 mt-1">
+                    <input type="text" id="nombre" name="nombre" class="form-control" value="<%=productoSel.nombre%>"/>
+                </div>                 
+                
+                <div class="col-2 mt-1">
+                    <label>Fabricante</label>
+                </div>
+                <div class="col-10 mt-1">
+                    <input type="text" id="fabricante" name="fabricante" class="form-control" value="<%=productoSel.fabricante%>"/>
+                </div>
+                
+                <div class="col-2 mt-1">
+                    <label>Categoría</label>
+                </div>
+                <div class="col-10 mt-1">
+                    <input type="text" id="categoria" name="categoria" class="form-control" value="<%=productoSel.categoria%>"/>
+                </div>
+
+                <div class="col-2 mt-1">
+                    <label>Caracteristicas</label>
+                </div>
+                <div class="col-10 mt-1">
+                    <textarea id="caracteristicas" name="caracteristicas" class="form-control"><%=productoSel.caracteristicas%></textarea>
+                </div>
+            </div> 
+        </form>   
+    </div>
+</body>
+</html>

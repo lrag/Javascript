@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<script type="application/javascript">
+
+    //El JS los objetos son arrays asociativos definidos con {}
+    //Lo que en un array asociativo se llama clave, aqui se llama 'propiedad'
+    //Como valores de las propiedades podremos tener:
+    //-un valor (identidad)
+    //-una funcion -> funcionalidad del objeto
+    //Podemos utilizar la notación del punto o la de los corchetes
+    
+    //No es lo mismo declarar un objeto con [] que con {}
+    let persona1 = [] //ESTO ES UN ARRAY
+    persona1['nombre'] = "Bart"
+    persona1['direccion'] = "C/Evergreen Terrace"
+    persona1.telefono = "123456789"
+    //Usamos el array 'persona1' para representar a una persona
+    //pero no deja de ser un array
+    persona1.push("ALGO") //Esto no tiene sentido, pero funciona!
+    
+    let persona2 = {}
+    persona2['nombre'] = "Bender Bending Rodriguez"
+    persona2.direccion = "NNY"
+    //persona2.push() //ZASCA!
+
+    //Utilizando las llaves para inicializar el objeto (más económico)
+    let libro = {
+        titulo : '20000 leguas de viaje submarino',
+        autor  : 'Julio Verne'
+    }    
+
+    //En JS los objetos no están cerrados. En cualquier momento podemos 
+    //añadirles nuevas propiedades, cambiarles el valor a las existentes
+    //y eliminarlas
+    //Esto es así porque en realidad son arrays asociativos
+    console.log(libro)
+    libro.saludar = function(){
+        console.log("Hola, soy un libro")
+    } 
+    
+    ////////////
+    //  THIS  //
+    ////////////
+    
+    //This es una palabra reservada en JS
+    //Es una variable implícita, disponible en el contexto de las funciones, que guardará una REFERENCIA
+
+    //This, en una función, es una referencia al objeto que posee dicha función
+
+    let coche = {
+        marca     : "Talbot",
+        modelo    : "Samba S",
+        matricula : "M-1234-DS",
+        color     : "rojo",
+        toCSV     : function(){
+            return `${this.marca},${this.modelo},${this.matricula},${this.color}`
+        }
+    }
+
+    console.log(coche)
+    console.log(coche.marca)
+    console.log(coche.toCSV)
+    console.log(coche.toCSV())
+
+    //Las funciones que no se 'guardan' en una variable se asocian siempre a un objeto
+    //Aquellas funciones no estan explícitamente asociadas a un objeto
+    //se convierten en propiedades del objeto WINDOW 
+
+    console.log("=======================================")
+    function sumar(s1, s2){
+        console.log(s1+s2)
+        console.log(this) //Window
+    }
+    sumar(10,20)
+    window.sumar(10,20)
+
+    
+        
+    console.log("=======================================")
+    let calculadora = {
+        nombre : "Casio FX-82", 
+        sumar : sumar
+    }
+    calculadora.sumar(25,75)
+
+    
+    //
+    //Reutilizando la misma función en distintos objetos para ahorrar memoria
+    //
+    console.log("=======================================")    
+    let pelicula1 = { titulo:"Die Hard" } 
+    let pelicula2 = { titulo:"Batman (1989)" } 
+    let pelicula3 = { titulo:"Los Bingueros" } 
+
+    //Cuidado que las funciones anonimas no se asocian al objeto WINDOW (aunque ese sea el valor por defecto de this)
+    let funcionToString = function(){
+        console.log("Gracias por inventar JS:",this)
+        return "Titulo: "+this.titulo
+    }
+    //window.funcionToString() Esto falla!
+    //Aunque no se haya asociado a window como propiedad, si la invocamos así
+    //'this' sigue siendo window
+    //funcionToString() //Aqui 'this' es window
+
+    pelicula1.toString = funcionToString    
+    pelicula2.toString = funcionToString
+    pelicula3.toString = funcionToString
+
+    //Cuando la misma función es utilizada por varios objetos el valor de 'this'
+    //es la variable que se está utilizando para invocar a la función
+    console.log(pelicula1.toString()) //this será 'pelicula1'
+    console.log(pelicula2.toString()) //this será 'pelicula2'
+    console.log(pelicula3.toString()) //this será 'pelicula3'
+
+    ///////////////////////
+    //FUNCIONES PROTOTIPO//
+    ///////////////////////
+    console.log("=========================================================")
+    //
+    //Sirven para 'centralizar' en un único lugar la definicion de un tipo de objetos
+    //Por convenio de nombrado su nombre es
+    //-un sustantivo en lugar de un verbo, que será el tipo de objeto que define
+    //-el nombre escrito en Pascal Case (UpperCamelCase)
+    //
+    //Las funciones prototipo se usan para crear objetos que cuenten con unas características
+    //predefinidas
+
+
+    function Avion(){
+        //Cuando se invoca una función con 'new' antes de ejectutar su primera línea
+        //ya se ha creado un objeto sin propiedades
+        //el valor de 'this' será ese objeto
+        this.fabricante = ""
+        this.modelo     = ""
+        this.year       = 0
+        //No hay return, pero se devuelve el objeto que se ha creado
+    }
+
+    //Las funciones prototipo se invocan utilizando la palabra reservada 'new'
+    let avion1 = new Avion()
+    avion1.fabricante = "Airbus"
+    //Cada vez que invoquemos la función con 'new' tendremos un objeto diferente
+    let avion2 = new Avion()
+    avion2.fabricante = "Boeing"
+    console.log(avion1)
+    console.log(avion2)
+
+
+    //
+    //Prototipos, simulando un constructor
+    //
+    console.log("=========================================================")
+    function Barco(nombre, year, eslora, TRB){
+        this.nombre = nombre,
+        this.year   = year,
+        this.eslora = eslora,
+        this.TRB    = TRB
+    }
+    
+    let barco1 = new Barco("USS Nimitz",1968,330,100000)
+    let barco2 = new Barco("Graf Spee",1932,200)
+    let barco3 = new Barco("Andrea Doria",1950)
+    let barco4 = new Barco("Amoco Cádiz")
+    let barco5 = new Barco()
+
+    console.log(barco1)
+    console.log(barco2)
+    console.log(barco3)
+    console.log(barco4)
+    console.log(barco5)
+
+    //
+    //Añadiendo funcionalidad a los objetos dentro de la función prototipo (mayor consumo de memoria)
+    //
+    console.log("=========================================================")
+    function Ordenador(tipo, fabricante, procesador, memoria, discoDuro){
+        this.tipo       = tipo
+        this.fabricante = fabricante
+        this.procesador = procesador
+        this.memoria    = memoria
+        this.discoDuro  = discoDuro
+        this.toCSV = function(){
+            return `${this.tipo},${this.fabricante},${this.procesador},
+                    ${this.memoria},${this.discoDuro}`
+        }
+    }
+
+    let ordenador1 = new Ordenador("PC sobremesa","IBM","8088",512,"10Mb")
+    let ordenador2 = new Ordenador("Microordenador","AMSTRAD","z80",64,"Cassette")
+    let ordenador3 = new Ordenador("Portatil","Apple","Powerpc",1024,"250Mb")
+    console.log(ordenador1)
+    console.log(ordenador2)
+    console.log(ordenador3)
+    console.log(ordenador1.toCSV())
+    console.log(ordenador2.toCSV())
+    console.log(ordenador3.toCSV())
+
+    //
+    //Añadiendo la funcionalidad al prototipo
+    //
+    console.log("=========================================================")
+    function Volcan(nombre,pais,tipo){
+        this.nombre = nombre
+        this.pais   = pais
+        this.tipo   = tipo
+    }
+    //Si queremos que todas las instancias compartan algo (funciones)
+    //debemos añadirlo al prototipo
+    Volcan.prototype.toCSV = function(){
+        return `${this.nombre},${this.pais},${this.tipo}`
+    }
+
+    let volcan1 = new Volcan("Stromboli","Italia","Estromboliano")
+    let volcan2 = new Volcan("Mauna Kea","USA","Hawaiano")
+    let volcan3 = new Volcan("Misti","Perú","Estratovolcan")
+
+    console.log(volcan1)
+    console.log(volcan2)
+    console.log(volcan3)
+    console.log(volcan1.toCSV())
+    console.log(volcan2.toCSV())
+    console.log(volcan3.toCSV())
+
+
+    volcan1.toCSV = function(){
+        console.log("BAAAAAAAAAAAAAM!!!!!!!")
+    }
+
+    console.log(volcan1.nombre)
+    console.log(volcan1.toCSV()) 
+    
+    //volcan3.toCSV 
+
+</script>
+
+<body>
+    
+    <h1>08_Objetos</h1>
+
+</body>
+</html>

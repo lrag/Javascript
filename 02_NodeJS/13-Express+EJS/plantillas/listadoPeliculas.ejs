@@ -1,0 +1,27 @@
+<html>
+<head>
+    <title>Peliculas</title>
+    <%- include('./includes/head');%>
+</head>
+
+<body>
+    <h2 align="center">
+        <font color="lightGreen">
+            Listado de películas
+        </font>
+    </h2>
+    <table align="center" border="1">
+        <tr>
+            <th>Titulo</th>
+            <th>Director</th>
+        </tr> 
+        <!-- scriptlet -->
+        <%for(let pelicula of listadoPeliculas) {%>
+            <tr>
+                <td><%=pelicula.titulo%></td>
+                <td><%=pelicula.director%></td>
+            </tr>
+        <%}%>
+    </table>
+</body>
+</html>

@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<script>
+
+//GET http://localhost:3000/productos
+
+function rellenarTabla(productos){
+    let html = ""
+    for(let producto of productos){
+        html += `
+            <tr>
+                <td>${producto.nombre}</td>
+                <td>${producto.nota}</td>
+                <td>${producto.precio}</td>
+                <td>${producto.existencias}</td>
+            </tr>`
+    }
+    document.getElementById("tablaProductos").innerHTML = html
+}
+
+function verFormulario(){
+    window.location.href = "formularioProductos.html"
+}
+
+window.onload = function() {
+    btnNuevo.onclick = verFormulario()
+}
+
+</script>
+
+<body>
+
+    <h1 align="center">Listado de productos</h1>
+
+    <div align="center">
+        <input type="button" value="Nuevo" id="btnNuevo">
+    </div>
+
+    <table align="center" border="1">
+        <tr>
+            <th>Nombre</th>
+            <th>Calificación</th>
+            <th>Precio</th>
+            <th>Existencias</th>
+        </tr>
+        <tbody id="tablaProductos"></tbody>
+    </table>
+
+</body>
+</html>

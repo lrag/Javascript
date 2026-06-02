@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.js" 
+    integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" 
+    crossorigin="anonymous"></script>
+    <!--<script src="./jquery.js" type="application/javascript"></script>-->
+
+</head>
+
+<script type="application/javascript">
+
+//                           //
+//Directamente con javascript//
+//                           //
+function listarPeliculas_JS(){
+    let xhr = new XMLHttpRequest()
+    xhr.open('GET', 'http://localhost:3000/peliculas')
+    xhr.onload = function(){
+        if(this.status != 200){
+            console.log("NO HA SIDO UN 200!!!")
+            return
+        }
+        rellenarTabla(JSON.parse(this.responseText))
+    }
+    xhr.onerror = function(){
+        procesarError('ZASCA!')
+    }    
+    xhr.send()
+}
+
+
+//                           //
+//Ejemplo de función genérica//
+//                           //
+//url 
+//metodo
+//sincrono/asíncrono
+//función éxito
+//funcion fallo
+//contenido del body
+//content-type
+//añadir otros headers
+function enviarPeticionAJAX(parametros){
+
+    let url    = parametros.url
+    let metodo = parametros.metodo
+    if(!metodo){
+        metodo = 'GET'
+    }
+    let asincrono = parametros.asincrono
+    if(!asincrono){
+        asincrono = true
+    }
+
+    let xmlHttp = new XMLHttpRequest()
+    xmlHttp.open(metodo, url, asincrono)
+
+    //Si nos dan la funcion 'exito' la invocamos con la respuesta
+    //transformada de JSON a objetos
+    if(parametros.exito){
+        xmlHttp.onload = function(){
+            parametros.exito(JSON.parse(this.responseText))
+        }
+    }
+    //Si nos dan la funcion 'fallo' la invocamos con el status de la respuesta
+    if(parametros.fallo){
+        xmlHttp.onerror = function(){
+            parametros.fallo(this.status)
+        }
+    }
+
+    xmlHttp.send(/*body*/)
+}
+
+//          //
+//Con JQuery//
+//          //
+function listarPeliculas(){
+
+    /*
+    $(funcion)    -> la asigna como manejadora del evento 'load'
+    $("selector") -> devuelve un objeto JQuery con los nodos que coincidan con el selector
+    $("<HTML>")   -> devuelve un objeto JQuery con los nodos creados a partir del html 
+    */
+
+    //Manera antígua de pasar los callbacks
+    //JQUery invoca la función success pasando como primer parámetro
+    //el contenido del body de la respuesta
+    //Si ha sido Content-type:app/json hace el JSON.parse por nosotros     
+    /*
+    $.ajax({
+        type  : "GET", //Por defecto el valor es 'GET'
+        url   : "http://localhost:3000/peliculas",
+        async : true, //Por defecto el valor es 'true'
+        success  : rellenarTabla,
+        error    : procesarError,
+        complete : movida
+    })
+    */
+
+    //Manera actual
+    $.ajax({
+        //type  : 'GET', //Por defecto es GET
+        url   : 'http://localhost:3000/peliculas', //Por defecto es '/'
+        //async : true  //Por   defecto es true
+    })
+    .done(rellenarTabla) //Solo se llama si ha sido un 200
+    .fail(procesarError) 
+    .always(movida)      //Siempre se invoca    
+
+
+    //Tambien disponemos de las funciones
+    //$.get
+    //$.post
+    //$.put
+    //$.delete
+
+    //Para envíar una peticion POST con un JSON en el body
+    //usando jQuery:
+    /*
+    $.ajax( {
+            type        : 'POST', 
+            url         : '...',
+            contentType : 'application/json',
+            data        : JSON.stringify(objeto),
+        })
+        .done( f )
+        .fail( f )
+    */   
+
+}
+
+function movida(){
+    console.log("FIN")
+}
+
+function procesarError(){
+    alert("ERROR!")
+}
+
+//La función asignada como callback en 'done' recibe por parámetro:
+//-el contendido del body
+//-el status
+//-un objeto que representa a la respuesta recibida
+//
+//En el objeto que representa a la respuesta encontraremos:
+// - el status code
+// - los headers de la respuesta
+// - el body (y, otra vez)
+//
+//Si en el head de la respuesta viene 'Content-Type: application/json' entonces
+//jquery hace por nosotros el JSON.parse del body y nos entrega directamente
+//los objetos
+function rellenarTabla(peliculas, status, response){
+
+    $("#tablaPeliculas").html('')
+    for(let pelicula of peliculas){
+        $(`
+        <tr>
+            <td>${pelicula.titulo}</td>
+            <td>${pelicula.director}</td>
+            <td>${pelicula.year}</td>
+            <td>${pelicula.genero}</td>
+        </tr>        
+        `)
+        .appendTo("#tablaPeliculas")
+    }
+}
+
+$(inicializar)
+
+function inicializar(){
+    $("#btnListar").click(listarPeliculas)
+
+    /*
+    enviarPeticionAJAX({
+        url   : 'http://localhost:3000/peliculas',
+        exito : rellenarTabla,
+        fallo : procesarError,
+    })
+    */
+}
+
+</script>
+
+<body>
+
+    <h1>18_JQuery_AJAX</h1>
+
+    <hr/>
+
+    <p align="center">
+        <button id="btnListar">Listar peliculas</button>
+    </p>
+
+    <div id="mensaje"></div>
+
+    <div>
+        <table border="1" align="center">
+            <tr>
+                <th>Título</th>
+                <th>Director</th>
+                <th>Año</th>
+                <th>Genero</th>
+            </tr>
+            <tbody id="tablaPeliculas"></tbody>
+        </table>
+    </div>
+       
+</body>
+
+
+</html>

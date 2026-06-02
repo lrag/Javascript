@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<script>
+ 
+function vaciar(){
+
+}
+
+function volver(){
+    window.location.href = "listadoProductos.html"
+}
+
+window.onload = function(){
+    btnVolver.onclick = volver
+}
+    
+</script>
+
+<body>
+
+    <h1 align="center">Formulario de productos</h1>
+
+    <div align="center">
+        <input type="button" value="Insertar"  id="btnInsertar">
+        <input type="button" value="Modificar" id="btnModificar">
+        <input type="button" value="Borrar"    id="btnBorrar">
+        <input type="button" value="Vaciar"    id="btnVaciar">
+        <input type="button" value="Volver"    id="btnVolver">
+    </div>
+
+    <table align="center" border="0">
+        <tr>
+            <td>Nombre</td>
+            <td>
+                <input type="text" id="nombre"/>
+            </td>
+        </tr>
+        <tr>
+            <td>Calificación</td>
+            <td>
+                <input type="text" id="calificacion"/>
+            </td>
+        </tr>
+        <tr>
+            <td>Precio</td>
+            <td>
+                <input type="text" id="precio"/>
+            </td>
+        </tr>
+        <tr>
+            <td>Existencias</td>
+            <td>
+                <input type="text" id="existencias"/>
+            </td>
+        </tr>
+        <tr>
+            <td>Descripción</td>
+            <td>
+                <textarea id="descripcion"></textarea>
+            </td>
+        </tr>
+    </table>
+
+</body>
+</html>
