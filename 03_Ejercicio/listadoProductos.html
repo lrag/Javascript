@@ -6,6 +6,10 @@
     <title>Document</title>
 </head>
 
+<script src="https://code.jquery.com/jquery-4.0.0.js"
+        integrity="sha256-9fsHeVnKBvqh3FB2HYu7g2xseAZ5MlN6Kz/qnkASV8U="
+        crossorigin="anonymous"></script>
+
 <script src="./common.js" type="application/javascript"></script>
 
 <script>
@@ -94,7 +98,7 @@ function getProductosYRellenarTablaYDesplegable(){
 }
 
 function obtenerProductos(callback){
-    fetch(urlServicio)
+    fetch(urlServicio+"productos")
     .then( responseHead => responseHead.json() )
     .then( callback )
     .catch( error => console.log(error) )

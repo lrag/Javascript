@@ -1,2 +1,2 @@
 
-const urlServicio = "http://localhost:3000/productos"
+const urlServicio = "http://localhost:3000/"
