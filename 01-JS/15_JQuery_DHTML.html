@@ -39,6 +39,7 @@ function pruebas(){
     $("#span1").html('<h1> <font color="orange"> HOLA </font> </h1>')
     $("#span2").text('<h1> <font color="orange"> HOLA </font> </h1>') //Crea un nodo de texto con el string
 
+
     //Lo mismo con dry stick javascript
     //document.getElementById("span2").innerText = '<h1> <font color="orange"> HOLA </font> </h1>'
 
@@ -80,20 +81,24 @@ function pruebas(){
     //    .appendTo(nodo)
 
     $("<table border='1'><tr><td>PRUEBA</td></tr></table>")
+        .css('color', 'blue')
         .appendTo("#span3")
 
-    $("<h2>Siete</h2><h2>caballos</h2><h2>vienen</h2><h2>de</h2><h2>Bonanza</h2>")
-        .appendTo("#span4")
 
-    //En los ejemplos anteriores se respeta el contenido que hubiera ya en el span
-    $("#span4")
+    $("<h2>Siete</h2><h2>caballos</h2><h2>vienen</h2><h2>de</h2><h2>Bonanza</h2>")
+       .appendTo("#span4")
+
+     
+     //En los ejemplos anteriores se respeta el contenido que hubiera ya en el span
+     $("#span4")
         .html('')
         .append("<h2>Siete</h2><h2>caballos</h2><h2>vienen</h2><h2>de</h2><h2>Bonanza</h2>")
-
+        
+        
     //Este ejemplo añade hijos a todos los espanes que haya o haiga
     $("<h2><font color='lightBlue'>!Hola Rafaela¡</font></h2>")
         .appendTo("span")
-
+        
     //
     //Añadiendo nodos a posiciones concretas
     //

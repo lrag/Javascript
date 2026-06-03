@@ -64,6 +64,7 @@ DELETE   /productos/15   -           Borrar por id   -
 
 //GET http://localhost:3000/productos
 
+/*
 function obtenerProductos(){
     fetch(urlServicio)
     .then( function(responseHead) {
@@ -73,6 +74,30 @@ function obtenerProductos(){
         rellenarTabla(productos)
     })
     .catch( function(error) { console.log(error) } )
+}
+*/
+
+function getProductosYRellenarTabla(){
+    obtenerProductos(rellenarTabla)
+}
+
+function getProductosYRellenarDesplegable(){
+    obtenerProductos(rellenarDesplegable)
+
+}
+
+function getProductosYRellenarTablaYDesplegable(){
+    obtenerProductos( productos => {
+        rellenarTabla(productos)
+        rellenarDesplegable(productos)
+    })
+}
+
+function obtenerProductos(callback){
+    fetch(urlServicio)
+    .then( responseHead => responseHead.json() )
+    .then( callback )
+    .catch( error => console.log(error) )
 }
 
 function rellenarTabla(productos){
@@ -89,13 +114,17 @@ function rellenarTabla(productos){
     document.getElementById("tablaProductos").innerHTML = html
 }
 
+function rellenarDesplegable(){
+    console.log("desplegable...")
+}
+
 function verFormulario(){
     window.location.href = "formularioProductos.html"
 }
 
 window.onload = function() {
     btnNuevo.onclick = verFormulario
-    obtenerProductos()
+    getProductosYRellenarTablaYDesplegable()
 }
 
 </script>
@@ -121,6 +150,10 @@ window.onload = function() {
         </tr>
         <tbody id="tablaProductos"></tbody>
     </table>
+
+    <div align="center">
+        Productos <select id="desplegableProductos"></select>
+    </div>
 
 </body>
 </html>

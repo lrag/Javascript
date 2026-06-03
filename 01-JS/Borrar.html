@@ -1,0 +1,41 @@
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<script type="application/javascript">
+
+function botonDalePulsado(evento){
+    console.log(arguments[0])
+    console.log(evento)
+    
+    let x = evento.x
+    let y = evento.y
+
+    dibujarChincheta(x,y)
+}
+
+function dibujarChincheta(x, y){
+    //poner la chincheta
+    console.log("Dibujando la chincheta en "+x+", "+y)
+}
+
+
+window.onload = function() {
+    document.getElementById("btnDale").onclick = botonDalePulsado
+}
+
+</script>
+
+
+<body>
+
+    <input type="button"id="btnDale" value="Dale"/>
+    
+</body>
+</html>

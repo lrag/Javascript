@@ -46,6 +46,8 @@ function listarPeliculas_JS(){
 //contenido del body
 //content-type
 //añadir otros headers
+
+
 function enviarPeticionAJAX(parametros){
 
     let url    = parametros.url
@@ -78,6 +80,7 @@ function enviarPeticionAJAX(parametros){
     xmlHttp.send(/*body*/)
 }
 
+
 //          //
 //Con JQuery//
 //          //
@@ -104,7 +107,9 @@ function listarPeliculas(){
     })
     */
 
+    //
     //Manera actual
+    //
     $.ajax({
         //type  : 'GET', //Por defecto es GET
         url   : 'http://localhost:3000/peliculas', //Por defecto es '/'
@@ -112,8 +117,20 @@ function listarPeliculas(){
     })
     .done(rellenarTabla) //Solo se llama si ha sido un 200
     .fail(procesarError) 
-    .always(movida)      //Siempre se invoca    
+    .always(movida)      //(Opcional) Siempre se invoca    
 
+    //
+    //Adición de la función "then"
+    //La función ajax() NO devuelve una promesa
+    //
+    $.ajax({
+        //type  : 'GET', //Por defecto es GET
+        url   : 'http://localhost:3000/peliculas', //Por defecto es '/'
+        //async : true  //Por   defecto es true
+    })
+    .then(rellenarTabla) //Permite concatenar llamadas a $.ajax como si de una promesa se tratara
+    .fail(procesarError) 
+    .always(movida)     
 
     //Tambien disponemos de las funciones
     //$.get
@@ -140,7 +157,10 @@ function movida(){
     console.log("FIN")
 }
 
-function procesarError(){
+function procesarError(response, error, errorMessage){
+
+    console.log(arguments)
+
     alert("ERROR!")
 }
 

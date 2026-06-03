@@ -96,6 +96,51 @@ fs.readFile("./texto1.txt")
         console.log("FIN con error")
     })
 
+//
+//Sin variables
+//
+fs.readFile("./texto1.txt")
+    .then(function(contenido){
+        let contenido1 = contenido.toString()
+        return Promise.all([contenido1, fs.readFile("./texto2.txt")])
+    })
+    .then(function(rs){
+        let contenido1 = rs[0]
+        let contenido2 = rs[1].toString()
+        return Promise.all([ contenido1+"\n"+contenido2, fs.readFile("./texto3.txt")])
+    })
+    .then(function([ parcial, contenido3 ]){
+        let total = parcial + "\n" + contenido3.toString()
+        return fs.writeFile("./texto4Bis.txt", total)
+    })
+    .then(function(x){
+        console.log("FIN")
+    })
+    .catch(function(err){
+        console.log(err)
+        console.log("FIN con error")
+    })
+
+//
+//Podemos leer los ficheros en paralelo
+//
+Promise.all([ 
+        fs.readFile("./texto1.txt"), 
+        fs.readFile("./texto2.txt"), 
+        fs.readFile("./texto3.txt")
+    ])
+    .then( ([contenido1, contenido2, contenido3]) => {
+        let contenido4 = contenido1.toString() + "\n" + contenido2.toString() + "\n" + contenido3.toString()
+        return fs.writeFile("./texto4BisBis.txt", contenido4)    
+    })
+    .then(function(x){
+        console.log("FIN")
+    })
+    .catch(function(err){
+        console.log(err)
+        console.log("FIN con error")
+    })
+
 console.log("Fin en falso")    
 
 

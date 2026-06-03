@@ -31,18 +31,19 @@ function validar(evento){
 
 function pruebas(){
 
+    
     //Con JS
     //document.getElementById("DALE").onclick = dale
     //document.getElementById("DALE").addEventListener('click', dale)
-
+    
     //Así no:
-    //let nodos = $("#DALE")  
-    //nodos[0].onclick = dale   
-
+    //let jQueryObj = $("#DALE")  
+    //jQueryObj[0].onclick = dale   
+    
     //Asi sí:
     $("#DALE").click(dale1)
     //$("#DALE").click(dale2) //JQuery utiliza 'addEventListener'. Se ejecutarán las dos funciones al pulsar
-
+    
     //Tambien con 'on' al estido de 'addEventListener'
     $("#DALE").on("click", dale1)
 

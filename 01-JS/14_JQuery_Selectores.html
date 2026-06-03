@@ -19,7 +19,6 @@
 
 </script>
 
-
     <!-- 
     Podemos ahorrarnos el './' si queremos indicar una ruta relativa
     src="./jquery.js" 
@@ -91,6 +90,7 @@ function pruebas(){
     console.log(objetoJQuery)
     console.log(objetoJQuery.length) //Numero de nodos localizados
 
+
     /////////////////////////
     //Buscando nodos por id//
     /////////////////////////
@@ -99,9 +99,9 @@ function pruebas(){
     
     let jQueryObj = $("#div1")
     //Cuidado que no nos dan el nodo. Siempre será un objeto jQuery
-    
+
     let nodo = jQueryObj[0]
-    console.log(nodo)    
+    console.log(nodo) 
 
     //Jquery tiene además la función 'get'
     nodo = jQueryObj.get(0)
@@ -122,7 +122,8 @@ function pruebas(){
     jQueryObj = $("input")
     //Despues de todo el objeto jQuery es un array...
     for(let nodo of jQueryObj){
-        nodo.value = "hola"    }
+        nodo.value = "hola"    
+    }
 
     //El objeto JQuery tiene una serie de funciones de utilidad que
     //se aplican a todos los nodos contenidos en el array
@@ -131,9 +132,9 @@ function pruebas(){
 
     //jQueryObj = $("input")
     //jQueryObj.val("HOLO, que es más gordo")
-
+    
     $("input").val("HOLO, que es más gordo")
-
+    
     //si no recibe parámetros devuelve el value del primer nodo (return nodo.value)
     console.log($("#txt1").val())
 
@@ -153,7 +154,6 @@ function pruebas(){
     $(".titulo").css('color','yellow')
     $(".titulo").css('background-color','lightGreen')
     
-    
     //css() y otras funciones de jquery admiten distintos tipos de parámetros
     $(".titulo").css({
         'color' : 'lightGreen',
@@ -171,15 +171,16 @@ function pruebas(){
     
     $("input")
         .css("color", "red")
-        .val("AC/DC")          
+        .val("AC/DC")  
 
     //Solo el primero o el último
     $("input")
         .first()
         //.last()
         .css("color", "purple")
-        .val("DEEP PURPLE")      
+        .val("DEEP PURPLE")     
 
+    
     /////////////////////////
     //Buscando por atributo//
     /////////////////////////
@@ -194,6 +195,7 @@ function pruebas(){
     $("[dato$='123']") //El valor del atributo termina por '123'
     $("[dato^='123']") //El valor del atributo comienza por '123'
     $("[dato~='123']") //El valor del atributo contiene la palabra ' 123 '     
+
 
     ////////////////////////////
     //Selector de pseudoclases//
@@ -238,6 +240,7 @@ function pruebas(){
     $("#div3 > [type='text']").css("border", "3px green solid")      
     $("#div3").children("[type='text']").css("border", "3px green solid")      
 
+    
     ////////////////////////////////////
     //Trabajando con el array de nodos//
     ////////////////////////////////////
