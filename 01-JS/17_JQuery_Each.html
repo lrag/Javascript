@@ -34,6 +34,15 @@ function inicializar(){
     //Función EACH//
     ////////////////
 
+
+    $("h2").each( (pos, nodo) => console.log(nodo.innerText) )
+
+    let datos = [ "uno", "dos", "tres", "cuatro", "cinco" ]
+    //Atención que si a la función jQuery le pasamos un array lo recorre
+    $(datos).each((pos, elem) => console.log(elem))
+    //Y tambien podemos hacer esto
+    $.each(datos, (pos, elem) => console.log(elem))
+
     //
     //Ejecuta la función que recibe por parámetro por cada uno de los nodos contenidos en el array
     //    

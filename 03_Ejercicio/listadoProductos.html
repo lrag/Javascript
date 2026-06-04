@@ -14,55 +14,18 @@
 
 <script>
 
+
 /*
 
-GET
-POST
-PUT
-DELETE
-PATCH
-----------------------
-HEAD
-OPTIONS
-
-Identificar los recursos
-y decidir cómo se representan
-
-productos
-
-    {
-      "id": 2,
-      "nombre": "Teclado Mecánico ProType RGB",
-      "precio": 119.95,
-      "stock": 12,
-      "categorias": [
-        "Informática",
-        "Gaming",
-        "Periféricos"
-      ],
-      "nota": 4.8
-    }
-
-clientes
-empleados
-facturas
-
-Asignar carpetas (imaginarias) a los recursos
-
-/productos
-/clientes
-/empleados
-
-Por cada funcionalidad del servicio 
-crearemos un par METODO + RUTA único
+============================================================
 
 Método   Ruta            Body        Operacion       Respuesta
 --------------------------------------------------------------------------
 GET      /productos      -           Listar          [{producto}]
-GET      /productos/15   -           Buscar por id   {producto}
+GET      /productos/{id} -           Buscar por id   {producto}
 POST     /productos      {producto}  Insertar        {producto_insertado}
-PUT      /productos/15   {producto}  Modificar       {producto_modificado}
-DELETE   /productos/15   -           Borrar por id   -
+PUT      /productos/{id} {producto}  Modificar       {producto_modificado}
+DELETE   /productos/{id} -           Borrar por id   -
 
 */
 
@@ -87,7 +50,6 @@ function getProductosYRellenarTabla(){
 
 function getProductosYRellenarDesplegable(){
     obtenerProductos(rellenarDesplegable)
-
 }
 
 function getProductosYRellenarTablaYDesplegable(){
@@ -104,6 +66,8 @@ function obtenerProductos(callback){
     .catch( error => console.log(error) )
 }
 
+/*
+//Con Javascript a palo seco
 function rellenarTabla(productos){
     let html = ""
     for(let producto of productos){
@@ -116,6 +80,40 @@ function rellenarTabla(productos){
             </tr>`
     }
     document.getElementById("tablaProductos").innerHTML = html
+}
+*/
+
+function rellenarTabla(productos){
+    /*
+    for(let producto of productos){
+        let html = `
+            <tr>
+                <td>${producto.nombre}</td>
+                <td>${producto.nota}</td>
+                <td>${producto.precio}</td>
+                <td>${producto.stock}</td>
+            </tr>`
+        $(html).appendTo("#tablaProductos")
+    }
+    */
+
+    $.each(productos, (pos, producto) => {
+        let html = `
+            <tr>
+                <td>${producto.nombre}</td>
+                <td>${producto.nota}</td>
+                <td>${producto.precio}</td>
+                <td>${producto.stock}</td>
+            </tr>`
+        $(html).click( () => seleccionarProducto(producto.id)).appendTo("#tablaProductos")
+        //$("#tablaProductos").append(html).click(() => seleccionarProducto(producto.id))
+    })
+}
+
+function seleccionarProducto(idProducto){
+    console.log(idProducto)
+    sessionStorage.setItem("idProductoSeleccionado", idProducto)
+    window.location.href = "formularioProductos.html?idProducto="+idProducto
 }
 
 function rellenarDesplegable(){

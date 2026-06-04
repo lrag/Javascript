@@ -71,7 +71,6 @@ fs.readFile("./recursos/fichero1.txt")
     })
 */
 
-
 let contenido1 = null 
 let contenido2 = null
 
