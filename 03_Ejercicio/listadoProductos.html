@@ -16,9 +16,6 @@
 
 
 /*
-
-============================================================
-
 Método   Ruta            Body        Operacion       Respuesta
 --------------------------------------------------------------------------
 GET      /productos      -           Listar          [{producto}]
@@ -26,7 +23,6 @@ GET      /productos/{id} -           Buscar por id   {producto}
 POST     /productos      {producto}  Insertar        {producto_insertado}
 PUT      /productos/{id} {producto}  Modificar       {producto_modificado}
 DELETE   /productos/{id} -           Borrar por id   -
-
 */
 
 //GET http://localhost:3000/productos
@@ -121,13 +117,15 @@ function rellenarDesplegable(){
 }
 
 function verFormulario(){
+    sessionStorage.removeItem("idProductoSeleccionado")
     window.location.href = "formularioProductos.html"
 }
 
-window.onload = function() {
+$(() => {
     btnNuevo.onclick = verFormulario
     getProductosYRellenarTablaYDesplegable()
-}
+    mostrarMensaje()
+})    
 
 </script>
 
@@ -137,11 +135,13 @@ window.onload = function() {
 
     <hr/>
 
+    <div id="mensaje" align="center"></div>
+
     <div align="center">
         <input type="button" value="Nuevo" id="btnNuevo">
     </div>
 
-    <p/>
+    <p></p>
 
     <table align="center" border="1">
         <tr>
@@ -152,6 +152,8 @@ window.onload = function() {
         </tr>
         <tbody id="tablaProductos"></tbody>
     </table>
+
+    <p></p>
 
     <div align="center">
         Productos <select id="desplegableProductos"></select>

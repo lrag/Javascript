@@ -64,6 +64,54 @@
         "Electrodomésticos"
       ],
       "nota": 4.9
+    },
+    {
+      "nombre": "P1",
+      "nota": "1",
+      "precio": "2",
+      "stock": "3",
+      "descripcion": "4",
+      "id": 6
+    },
+    {
+      "nombre": "P2",
+      "nota": "11",
+      "precio": "22",
+      "stock": "33",
+      "descripcion": "44",
+      "id": 7
+    },
+    {
+      "nombre": "P3",
+      "nota": "111",
+      "precio": "222",
+      "stock": "333",
+      "descripcion": "444",
+      "id": 8
+    },
+    {
+      "nombre": "P4",
+      "nota": "1111",
+      "precio": "2222",
+      "stock": "3333",
+      "descripcion": "4444",
+      "id": 9
+    },
+    {
+      "nombre": "P5",
+      "nota": "11111",
+      "precio": "22222",
+      "stock": "33333",
+      "descripcion": "44444",
+      "id": 10
+    },
+    {
+      "nombre": "AAA",
+      "nota": "",
+      "precio": "123",
+      "stock": "",
+      "descripcion": "",
+      "id": 11
     }
   ],
   "usuarios": [

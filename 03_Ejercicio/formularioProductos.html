@@ -6,20 +6,131 @@
     <title>Document</title>
 </head>
 
+
+
+<script src="https://code.jquery.com/jquery-4.0.0.js"
+        integrity="sha256-9fsHeVnKBvqh3FB2HYu7g2xseAZ5MlN6Kz/qnkASV8U="
+        crossorigin="anonymous"></script>
+
+
+<script src="./common.js" type="application/javascript"></script>        
+
 <script>
- 
-function vaciar(){
 
-}
+/*
+Método   Ruta            Body        Operacion       Respuesta
+--------------------------------------------------------------------------
+GET      /productos      -           Listar          [{producto}]
+GET      /productos/{id} -           Buscar por id   {producto}
+POST     /productos      {producto}  Insertar        {producto_insertado}
+PUT      /productos/{id} {producto}  Modificar       {producto_modificado}
+DELETE   /productos/{id} -           Borrar por id   -
+*/
 
-function volver(){
-    //quitar el idProducto Seleccionado
+
+function verListado(){
     window.location.href = "listadoProductos.html"
 }
 
-window.onload = function(){
-    btnVolver.onclick = volver
+function obtenerProducto(){
+    let idProductoSeleccionado = sessionStorage.getItem("idProductoSeleccionado")
+    if(!idProductoSeleccionado){
+        return
+    }
+
+    $.ajax({
+            url   : urlServicio+'productos/'+idProductoSeleccionado
+        })
+        .done( rellenarFormulario )
+        .fail( () => alert("Fallo al seleccionar el producto"))
 }
+
+function vaciarFormulario(){
+    sessionStorage.removeItem("idProductoSeleccionado")  
+    rellenarFormulario({ })
+}
+
+function rellenarFormulario(producto){
+    $("#nombre").val(producto.nombre)
+    $("#nota").val(producto.nota)
+    $("#precio").val(producto.precio)
+    $("#stock").val(producto.stock)
+    $("#descripcion").val(producto.descripcion)
+}
+
+function obtenerProducto(){
+    let idProductoSeleccionado = sessionStorage.getItem("idProductoSeleccionado")
+    if(!idProductoSeleccionado){
+        return
+    }
+
+    $.ajax({
+            url : urlServicio+'productos/'+idProductoSeleccionado
+        })
+        .done( rellenarFormulario )
+        .fail( () => alert("Fallo al seleccionar el producto"))
+}
+
+function vaciarFormulario(){
+    sessionStorage.removeItem("idProductoSeleccionado")  
+    rellenarFormulario({ })
+}
+
+function rellenarFormulario(producto){
+    $("#nombre").val(producto.nombre)
+    $("#nota").val(producto.nota)
+    $("#precio").val(producto.precio)
+    $("#stock").val(producto.stock)
+    $("#descripcion").val(producto.descripcion)
+}
+
+function insertarProducto(){
+
+    let producto = {
+        nombre      : $("#nombre").val(),
+        nota        : $("#nota").val(),
+        precio      : $("#precio").val(),
+        stock       : $("#stock").val(),
+        descripcion : $("#descripcion").val()
+    }
+
+    let errores = false
+    $("font[color='red']").text('')
+    if(producto.nombre.trim().length == 0){
+        $("#msgNombre").text("El nombre es obligatorio")
+        errores = true
+    } 
+    if(producto.precio.trim().length == 0){
+        $("#msgPrecio").text("El precio es obligatorio")
+        errores = true
+    }
+    if(errores){
+        return
+    }
+
+    $.post( {
+            url         : urlServicio+'productos',
+            contentType : 'application/json',
+            data        : JSON.stringify(producto),
+        })
+        .done( () => {
+            sessionStorage.setItem("mensaje", `El producto '${producto.nombre}'se insertó.`)
+            verListado()
+        })
+        .fail( e => {
+            console.log(e)
+            alert("Fallo al insertar")
+        } )    
+
+}
+
+$(() => {
+    btnVolver.onclick = verListado
+    btnVaciar.onclick = vaciarFormulario
+    btnInsertar.onclick = insertarProducto
+    obtenerProducto()
+    mostrarMensaje()
+})
     
 </script>
 
@@ -43,25 +154,25 @@ window.onload = function(){
         <tr>
             <td>Nombre</td>
             <td>
-                <input type="text" id="nombre"/>
+                <input type="text" id="nombre"/><font color="red" id="msgNombre"></font>
             </td>
         </tr>
         <tr>
             <td>Calificación</td>
             <td>
-                <input type="text" id="calificacion"/>
+                <input type="text" id="nota"/>
             </td>
         </tr>
         <tr>
             <td>Precio</td>
             <td>
-                <input type="text" id="precio"/>
+                <input type="text" id="precio"/><font color="red" id="msgPrecio"></font>
             </td>
         </tr>
         <tr>
             <td>Existencias</td>
             <td>
-                <input type="text" id="existencias"/>
+                <input type="text" id="stock"/>
             </td>
         </tr>
         <tr>
