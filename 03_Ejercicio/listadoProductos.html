@@ -55,11 +55,21 @@ function getProductosYRellenarTablaYDesplegable(){
     })
 }
 
-function obtenerProductos(callback){
+function obtenerProductos_sin_async_await(callback){
     fetch(urlServicio+"productos")
     .then( responseHead => responseHead.json() )
     .then( callback )
     .catch( error => console.log(error) )
+}
+
+async function obtenerProductos(callback){
+    try {
+        let responseHead = await fetch(urlServicio+"productos")
+        let productos = await responseHead.json()
+        callback(productos)
+    } catch (error) {
+        console.log(error)
+    }
 }
 
 /*

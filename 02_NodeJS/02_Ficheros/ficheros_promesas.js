@@ -1,4 +1,5 @@
 //Esta viene de serie con Node.Js
+const { readFile } = require("fs")
 const fs = require("fs/promises")
 
 
@@ -96,6 +97,67 @@ fs.readFile("./texto1.txt")
     })
 
 console.log("Fin en falso")    
+
+
+/*
+Promise.all([
+        fs.readFile("./texto1.txt"),
+        "ATIZA"
+    ])
+    .then( contenidos => {
+        console.log(contenidos[0])
+        console.log(contenidos[1])
+    })
+*/
+
+//Lo mismo pero sin variables auxiliares
+
+fs.readFile("./texto1.txt")
+    .then( contenido => {
+        contenido1 = contenido.toString()
+        return Promise.all([ contenido1, fs.readFile("./texto2.txt")])
+    })
+    .then(contenidos => {
+        contenido1 = contenidos[0]
+        contenido2 = contenidos[1].toString()
+        return Promise.all([ contenido1+'\n'+contenido2, fs.readFile("./texto3.txt") ])
+    })
+    .then( ([parcial, contenido3]) => {
+        let x = parcial + "\n" + contenido3.toString()
+        return fs.writeFile("./texto4Bis.txt", x)
+    })
+    .then(function(x){
+        console.log("FIN")
+    })
+    .catch(function(err){
+        console.log(err)
+        console.log("FIN con error")
+    })
+
+
+//
+//Podemos leer los ficheros en paralelo
+//Promise.all recibe un array de promesas y devuelve una promesa que las engloba todas
+//
+Promise.all([
+        fs.readFile("./texto1.txt"), 
+        fs.readFile("./texto2.txt"), 
+        fs.readFile("./texto3.txt") 
+    ])
+    .then( ([contenido1, contenido2, contenido3]) => {
+        let contenidoFinal = contenido1.toString()+'\n'+contenido2.toString()+'\n'+contenido3.toString()
+        return fs.writeFile("./texto4BisBis.txt", contenidoFinal)
+    })
+    .then(function(x){
+        console.log("FIN")
+    })    
+    .catch(() => {})
+
+
+
+
+
+
 
 
 
